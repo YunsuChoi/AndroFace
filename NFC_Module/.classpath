@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Android/android-sdk/tools/lib/guava-10.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Android/android-sdk/tools/lib/guavalib.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

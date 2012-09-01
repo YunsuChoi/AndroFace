@@ -11,6 +11,12 @@
 // guess "Ear parts" doesn't need to woriking separated. so, I think Two servos can getting same signal at the same time.
 // by change the physically servo's direction. well, that gonna be okay.
 
+const int leftLed = 3; // digital pin 3
+const int rightLed = 4; // digital pin 4
+
+int birightness = 0;
+int increment = 1;
+
 AndroidAccessory acc("Yunsu Choi",
 "AndroFace",
 "JellyBean Dispencer",
@@ -51,21 +57,32 @@ void loop() // loop phase is imcomplete,
 
   if (acc.isConnected()) {
     int len = acc.read(msg, sizeof(msg), -1);
-
     if (len > 0) { // assumes only one command per packet
       if (msg[0] == 0x1)
-//      for(msg[0]=0x0;msg[0]=0x1;){ // loop,.
+        // Led control
+              if(brightness > 255){
+                increment = -1;
+              }
+              else if(brightness <1){
+                increment = 1;
+              }
+              
         if (msg[1] == 0x0) // 0x10 select servos[NUMBER], this line calls #1 servo function on Demokit app
-            servos[0].write(map(msg[2], 0, 255, 0, 180));  //  left arm(0~255)
-//      }
+            for(msg[1]=0x0 ; msg[1]=0x1 ; ){ //loop until another command(0x1).
+              servos[0].write(map(msg[2], 0, 255, 0, 180));  //  Ear (L/R) *InComplete*
+              analogWrite(leftLed, brightness);
+              analogWrite(rightLed, brightness);  // Slowly dimming L/R leds.
+            }
+            
         else if (msg[1] == 0x1) // This line(0x11) calls #2 servo servo function on Demokit app
-            servos[1].write(map(msg[2], 255, 0, 0, 180));  //  right arm(255~0)
+           // for(;;){
+           // }
+              servos[1].write(map(msg[2], 255, 0, 0, 180));  //  right arm(255~0)
+
         else if (msg[1] == 0x2) // This line(0x11) calls #3 servo servo function on Demokit app
             servos[2].write(map(msg[2], 0, 255, 45, 160));  //  head control range (0~255), Decreased head parts movement angle (65~140)
-         */
       }
     }
-  }
   else { // When does NOT Connected to Phone.
     // reset outputs to default values when no input in a 10seconds.
     servos[0].write(0);  // left   arm set to initial position(lay)
