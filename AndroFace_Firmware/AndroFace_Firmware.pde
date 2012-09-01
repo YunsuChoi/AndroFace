@@ -53,9 +53,11 @@ void loop() // loop phase is imcomplete,
     int len = acc.read(msg, sizeof(msg), -1);
 
     if (len > 0) { // assumes only one command per packet
-      if (msg[0] == 0x1){
+      if (msg[0] == 0x1)
+//      for(msg[0]=0x0;msg[0]=0x1;){ // loop,.
         if (msg[1] == 0x0) // 0x10 select servos[NUMBER], this line calls #1 servo function on Demokit app
             servos[0].write(map(msg[2], 0, 255, 0, 180));  //  left arm(0~255)
+//      }
         else if (msg[1] == 0x1) // This line(0x11) calls #2 servo servo function on Demokit app
             servos[1].write(map(msg[2], 255, 0, 0, 180));  //  right arm(255~0)
         else if (msg[1] == 0x2) // This line(0x11) calls #3 servo servo function on Demokit app
