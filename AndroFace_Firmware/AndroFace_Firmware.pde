@@ -54,39 +54,40 @@ void loop() // loop phase is imcomplete,
     Serial.println(len, DEC);
   }
   delay(0); // control response timing
-
+  // Led control
+    if(brightness > 255){
+      increment = -1;
+    }
+    else if(brightness <1){
+      increment = 1;
+    }
+    
   if (acc.isConnected()) {
     int len = acc.read(msg, sizeof(msg), -1);
     if (len > 0) { // assumes only one command per packet
       if (msg[0] == 0x1)
-        // Led control
-              if(brightness > 255){
-                increment = -1;
-              }
-              else if(brightness <1){
-                increment = 1;
-              }
-              
         if (msg[1] == 0x0) // 0x10 select servos[NUMBER], this line calls #1 servo function on Demokit app
-            for(msg[1]=0x0 ; msg[1]=0x1 ; ){ //loop until another command(0x1).
-              servos[0].write(map(msg[2], 0, 255, 0, 180));  //  Ear (L/R) *InComplete*
-              analogWrite(leftLed, brightness);
-              analogWrite(rightLed, brightness);  // Slowly dimming L/R leds.
+              analogWrite(leftLed, brightness);  // Slowly dimming L/R leds.
+              analogWrite(rightLed, brightness);
+            for(msg[1]=0x0;msg[0]=0x1;){ //loop until another command(0x1).
+              servos[0].write(0);  //  Ear (L/R) loop. Both servo should connect to same pin.
+              servos[0].write(180); 
             }
             
-        else if (msg[1] == 0x1) // This line(0x11) calls #2 servo servo function on Demokit app
-           // for(;;){
-           // }
-              servos[1].write(map(msg[2], 255, 0, 0, 180));  //  right arm(255~0)
-
-        else if (msg[1] == 0x2) // This line(0x11) calls #3 servo servo function on Demokit app
-            servos[2].write(map(msg[2], 0, 255, 45, 160));  //  head control range (0~255), Decreased head parts movement angle (65~140)
+        else if (msg[1] == 0x1) // This line(0x1) calls #2 function on the app
+              analogWrite(leftLed, brightness);  // Slowly dimming L/R leds.
+              analogWrite(rightLed, brightness);
+              servos[1].write(0);  //  mouth open
+                delay(1000);
+              servos[1].write(90);  // mouth close
+        else if (msg[1] == 0x2) // This line(0x2) calls #3 function on the app
+            // servos[2].write(map(msg[2], 0, 255, 45, 160));  //  head control range (0~255), Decreased head parts movement angle (65~140)
       }
     }
   else { // When does NOT Connected to Phone.
     // reset outputs to default values when no input in a 10seconds.
     servos[0].write(0);  // left   arm set to initial position(lay)
     servos[1].write(180); // right arm set to initial position(lay)
-    servos[2].write(90);  // head face heading to front angle.
+    // servos[2].write(90);  // head face heading to front angle.
   }
-} // loop function close
+}
