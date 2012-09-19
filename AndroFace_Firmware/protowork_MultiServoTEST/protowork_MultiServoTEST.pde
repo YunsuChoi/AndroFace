@@ -5,7 +5,7 @@
 #include <Usb.h>
 #include <AndroidAccessory.h>
 
-Servo myservo; //define numbers of servo
+Servo myservo1; //define numbers of servo
 int angle = 0;
 
 const int firstLED = 3;
@@ -20,16 +20,16 @@ void setup(){
   Serial.print("\r\nStart");
 
   myservo.attach(9);
+  myservo.attach(10);
 }
 
 void loop(){
-  
   for(angle=0; angle<180; angle++){
       myservo.write(angle);
       delay(2);
     }
   for(angle=180; angle>=1; angle--){
-    myservo.write(angle);
+      myservo.write(angle);
     delay(2);
   }
 }
