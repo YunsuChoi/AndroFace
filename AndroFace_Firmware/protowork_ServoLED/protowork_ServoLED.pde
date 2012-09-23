@@ -8,8 +8,9 @@
 const int firstLED = 3;
 const int secondLED= 4;
 
-Servo myservo1; //define numbers of servo
-Servo myservo2;
+Servo myservo1; // ear left
+Servo myservo2; //ear right
+Servo myservo3; // mouth
 
 int angle = 0;
 
@@ -24,11 +25,15 @@ void setup(){
     myservo1.write(0);
   myservo2.attach(10);
     myservo2.write(0);
+  myservo3.attach(11);
+    myservo3.write(90);
+    
   analogWrite(firstLED, 0);
   analogWrite(secondLED, 0);
 }
 
 void loop(){
+
   for(angle=0; angle<180; angle += 1){
       angle1 = 180 - angle;
       angle2 = 0 + (angle);
@@ -37,8 +42,8 @@ void loop(){
 
       myservo1.write(angle1);
       myservo2.write(angle2);
-      
-      delay(10); // DO NOT set below 2
+      myservo3.write(90);
+      delay(10); // DO NOT set delay(x) below 2
     }
 
   for(angle=180; angle>=1; angle--){
@@ -49,7 +54,7 @@ void loop(){
 
       myservo1.write(angle1);
       myservo2.write(angle2);
-
+      myservo3.write(0);
       delay(10);
   }
 }
