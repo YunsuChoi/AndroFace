@@ -7,19 +7,19 @@
 
 const int firstLED = 3;
 const int secondLED= 4;
+int i;
 
 Servo myservo1; // ear left
-Servo myservo2; //ear right
+Servo myservo2; // ear right
 Servo myservo3; // mouth
 
 int angle = 0;
-
-int angle1;
-int angle2;
+int angle1; //left ear
+int angle2; // right ear
 
 AndroidAccessory acc("Yunsu Choi",
 "Pedometer",
-"Pedometer Printing Board",
+"Project AndroFace",
 "1.0",
 "http://github.com/YunsuChoi",
 "0000000012345678");
@@ -30,8 +30,6 @@ AndroidAccessory acc("Yunsu Choi",
 //"1.0",
 //"http://github.com/YunsuChoi",
 //"0000000012345678");
-
-Servo servos[3]; //define numbers of servo
 
 void setup()
 {
@@ -64,22 +62,22 @@ void loop() // loop phase is imcomplete,
     Serial.println(len, DEC);
   }
   delay(0); // control response timing
-  // Led control
-    if(brightness > 255){
-      increment = -1;
-    }
-    else if(brightness <1){
-      increment = 1;
-    }
-    
-  if (acc.isConnected()) {
-    int len = acc.read(msg, sizeof(msg), -1);
-    if (len > 0) { // assumes only one command per packet
-      if (msg[0] == 0x1) {
-        if (msg[1] == 0x0) { // 0x10 select servos[NUMBER], this line calls #1 servo function on Demokit app
-                myservo3.write(90);
-              /*
-              for(angle=0; angle<180; angle += 1){
+
+  if (acc.isConnected()) { //whenever connected to Android phone.
+    for(;;){ // any Functions are NOT declared (Standby) Now loops.
+      for(angle=0; angle<180; angle += 1){
+                  angle1 = 180 - angle;
+                  angle2 = 0 + (angle);
+                  analogWrite(firstLED, angle);
+                  analogWrite(secondLED, angle);
+            
+                  myservo1.write(angle1);
+                  myservo2.write(angle2);
+  
+                  delay(10); // DO NOT set delay(x) below 2. servo cannot follows commands.
+                }
+                
+           for(angle=180; angle>=1; angle--){
                 angle1 = 180 - angle;
                 angle2 = 0 + (angle);
                 analogWrite(firstLED, angle);
@@ -88,14 +86,30 @@ void loop() // loop phase is imcomplete,
                 myservo1.write(angle1);
                 myservo2.write(angle2);
 
+                delay(10);
+           }
+    }
+    int len = acc.read(msg, sizeof(msg), -1);
+    if (len > 0) { // assumes only one command per packet
+      if (msg[0] == 0x1) {
+        if (msg[1] == 0x0) { // Function #1 from Android app
+            myservo3.write(90); // Mouth CLOSE
+            analogWrite(firstLED, 180);
+        }
+        
+        /* Function #2 from Android app
+        else if (msg[1] == 0x1) { // This line(0x1) calls #2 function on the app
+              for(angle=0; angle<180; angle += 1){
+                angle1 = 180 - angle;
+                angle2 = 0 + (angle);
+                analogWrite(firstLED, angle);
+                analogWrite(secondLED, angle);
+          
+                myservo1.write(angle1);
+                myservo2.write(angle2);
+                myservo3.write(90);
                 delay(10); // DO NOT set delay(x) below 2
               }
-              */
-        }
-      
-        else if (msg[1] == 0x1) { // This line(0x1) calls #2 function on the app
-              myservo3.write(0);
-          /*
           for(angle=180; angle>=1; angle--){
               angle1 = 180 - angle;
               angle2 = 0 + (angle);
@@ -104,18 +118,20 @@ void loop() // loop phase is imcomplete,
         
               myservo1.write(angle1);
               myservo2.write(angle2);
-
+              myservo3.write(0); // mouth OPEN            
               delay(10);
          }
-         */
       }
+      */
     }
+   }
   }
   else { // When does NOT Connected to Phone.
     // reset outputs to default values when no input in a 10seconds.
-    myservo1.write(0);  // left   arm set to initial position(lay)
-    myservo2.write(180); // right arm set to initial position(lay)
-    myservo2.write(90);
-    // servos[2].write(90);  // head face heading to front angle.
+    myservo1.write(180);  // left Ear
+    myservo2.write(0); // right Ear
+    myservo3.write(90); // Close Mouth
+    analogWrite(firstLED, 180);
+    analogWrite(secondLED, 180);
   }
 }
