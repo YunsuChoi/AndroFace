@@ -1,7 +1,6 @@
 package com.tigris.adk.androface;
 
 import com.tigris.adk.androface.R;
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;

@@ -18,7 +18,7 @@ int angle1; //left ear
 int angle2; // right ear
 
 AndroidAccessory acc("Yunsu Choi",
-"Pedometer",
+"AndroFace",
 "Project AndroFace",
 "1.0",
 "http://github.com/YunsuChoi",
