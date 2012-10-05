@@ -41,6 +41,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 <!-- TODO: Part 1/Step 3: Add a User Interface -->
+	  <!-- ADK Connection message -->
+	    <TextView android:id="@+id/txtMsg"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/hello" 
+	        android:gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"/>
+	  <!-- ADK Manual command Button -->
+		<ToggleButton
+		    android:id="@+id/btnLed"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:gravity="center"
+		    android:layout_marginLeft="30dp"
+		    android:layout_marginRight="30dp"
+		    android:text="LED"/>
+
+	  <!-- NFC control part -->	  
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +76,7 @@
             android:id="@+id/myUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="http://www.mroland.at/"
+            android:text="https://github.com/YunsuChoi"
             android:inputType="textUri"
             android:textStyle="normal"
             android:gravity="left"

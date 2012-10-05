@@ -32,5 +32,6 @@
     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <resources>
-    <string name="app_name">NFCReaderWriterDemo</string>
+    <string name="app_name">Project AndroFace_NFC</string>
+    <string name="hello">ADK does not connected</string>
 </resources>

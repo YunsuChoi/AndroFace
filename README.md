@@ -3,9 +3,9 @@
 
 ##This project is for Google HackFair 2012.##
 
-*Developing by [Yunsu Choi](mailto:goodbye.tigris@gmail.com "Yunsu Choi")*
+*Developed by [Yunsu Choi](mailto:goodbye.tigris@gmail.com "goodbye.tigris@gmail.com")*
 
-- This repository includes Android Project and Arduino firmware either.
-- NFC function will be unify with ADK module
-- ADK library is based on ADK2011 which annouenced at Google I/O 2011.
-- also Tesing device will be [Nexus S](http://en.wikipedia.org/wiki/Nexus_s)
+- This repository includes [Android code](https://github.com/YunsuChoi/AndroFace/tree/master/Main) and [Arduino firmware](https://github.com/YunsuChoi/AndroFace/tree/master/AndroFace_Firmware) either.
+- Working environment is [Ice Cream Sandwich 4.0.3](http://developer.android.com/intl/ko/about/versions/android-4.0.3.html) on [Samsung Nexus S](http://en.wikipedia.org/wiki/Nexus_s)
+- ADK library is based on [ADK 2011](http://developer.android.com/intl/ko/tools/adk/adk.html) which annouenced at Google I/O 2011.
+- [NFC function](https://github.com/YunsuChoi/AndroFace/tree/master/NFC_Module) is from [Michael Roland](http://www.mroland.at/projects/nfc-taginfo/)

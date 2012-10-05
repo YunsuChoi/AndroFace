@@ -57,8 +57,8 @@
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="http"
-                      android:host="www.mroland.at"
+                <data android:scheme="https"
+                      android:host="github.com"
                       android:pathPrefix="" />
             </intent-filter>
         </activity>
