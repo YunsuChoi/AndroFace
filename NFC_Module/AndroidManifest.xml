@@ -42,7 +42,11 @@
     <uses-permission android:name="android.permission.NFC" />
     <!-- Restrict app to devices with NFC hardware: -->
     <uses-feature android:name="android.hardware.nfc" android:required="true" />
+    <!-- Request permission to use ADK functionality: -->
+    <uses-feature android:name="android.hardware.usb.accessory"/>
+    
     <application android:label="@string/app_name" >
+        <uses-library android:name="com.android.future.usb.accessory" /><!-- USB ADK Permission -->
         <activity android:name="NFCReaderWriterDemo"
                   android:label="@string/app_name"
                   android:launchMode="singleTask"
@@ -61,6 +65,13 @@
                       android:host="github.com"
                       android:pathPrefix="" />
             </intent-filter>
+            
+			<!-- ADK Permission -->
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"/>
+            </intent-filter>
+			<meta-data android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
+				android:resource="@xml/accessory_filter" />
         </activity>
     </application>
 </manifest>
