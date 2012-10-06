@@ -37,7 +37,7 @@
       android:versionName="1.0">
 <!-- TODO: Part 1/Step 2: Android Manifest & NFC -->
     <!-- Require at least API level 10 (Android 2.3.3 and later): -->
-    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="15" />
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="15" />
     <!-- Request permission to use NFC functionality: -->
     <uses-permission android:name="android.permission.NFC" />
     <!-- Restrict app to devices with NFC hardware: -->

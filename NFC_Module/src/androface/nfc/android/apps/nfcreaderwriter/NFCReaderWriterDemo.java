@@ -38,6 +38,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -51,17 +52,63 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.ToggleButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+
 import java.nio.charset.Charset;
 import java.util.Arrays;
+
+import com.android.future.usb.UsbAccessory;
+import com.android.future.usb.UsbManager;
 
 /**
  * Utilities for URI record encoding.
  */
 public class NFCReaderWriterDemo extends Activity {
-
+	private static final String ACTION_USB_PERMISSION = 
+			"androface.nfc.android.apps.nfcreaderwriter.USB_PERMISSION";
+	// USB가 감지되었을 때의 이벤트를 받음.
+	private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if (ACTION_USB_PERMISSION.equals(action)) {
+				    // 사용자에게 Android Accessory Protocol을 구현한 장비가 연결되면
+				    // 수락할 것인지 문의한 다이얼로그에 대한 사용자의 선택 결과를 받는다.
+					synchronized (this) {
+					UsbAccessory accessory = UsbManager.getAccessory(intent);
+					if (intent.getBooleanExtra(
+							UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+						// 수락했을 경우
+						showMessage("receiver : USB Host 연결됨.");
+					} else {
+						Log.d(AdkExampleActivity.class.getName(), 
+								"permission denied for accessory "
+								+ accessory);
+					}
+					
+					openAccessory(accessory);
+					// 연결 수락 결과를 받았음을 표시
+					mPermissionRequestPending = false;
+				}
+			} else if (UsbManager.ACTION_USB_ACCESSORY_DETACHED.equals(action)) {
+				// Android Accessory Protocol을 구현한 장비의 연결이 해제되었을 때
+				UsbAccessory accessory = UsbManager.getAccessory(intent);
+				// 앱이 사용하고 있는 장비와 같은 것인지 확인
+				if (accessory != null && accessory.equals(mAccessory)) {
+					showMessage("USB Host 연결 해제됨.");
+					closeAccessory();
+				}
+			}
+		}
+	};
+	
 // TODO: Part 1/Step 4: Creating our Activity
     private static final int DIALOG_WRITE_URL = 1;
     private EditText mMyUrl;
@@ -75,7 +122,15 @@ public class NFCReaderWriterDemo extends Activity {
 // TODO: Part 2/Step 1: A Simple Dialog Box: Detected a Tag
     private static final int DIALOG_NEW_TAG = 3;
     private static final String ARG_MESSAGE = "message";
-    
+
+    //ADKs
+	private TextView txtMsg;
+	private UsbManager mUsbManager;
+	private UsbAccessory mAccessory;
+	private PendingIntent mPermissionIntent;
+	private boolean mPermissionRequestPending;
+	private ToggleButton btnLed;
+    private AdkHandler handler;
     /**
      * Called when the activity is first created.
      */
@@ -83,7 +138,27 @@ public class NFCReaderWriterDemo extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        txtMsg = (TextView)this.findViewById(R.id.txtMsg);
+        btnLed = (ToggleButton)this.findViewById(R.id.btnLed); // 버튼
 
+        //Android Accessory Protocol을 구현한 장비의 연결에 대한 브로드캐스트 리시버 등록
+      	IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+      	filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
+      	registerReceiver(mUsbReceiver, filter);
+      	
+      	mUsbManager = UsbManager.getInstance(this);
+		mPermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(
+				ACTION_USB_PERMISSION), 0);
+		
+        btnLed.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+        	@Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                     boolean isChecked) {
+                 if(handler != null && handler.isConnected()){
+                      handler.write((byte)0x1, (byte)0x0, isChecked ? 1 : 0);
+                      showMessage("Printer" + (isChecked ? "Start" : "END"));
+                 }
+            }});
 // TODO: Part 1/Step 4: Creating our Activity
         mMyUrl = (EditText) findViewById(R.id.myUrl);
         mMyWriteUrlButton = (Button) findViewById(R.id.myWriteUrlButton);
@@ -107,7 +182,26 @@ public class NFCReaderWriterDemo extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-
+     // 앱이 화면에 보일 때 안드로이드 장비에 Android Accessory Protocol을 
+     		// 구현한 USB Host가 연결되어 있는지 확인
+     		UsbAccessory[] accessories = mUsbManager.getAccessoryList();
+     		UsbAccessory accessory = (accessories == null ? null : accessories[0]);
+     		if (accessory != null) { // Android Accessory Protocol를 구현한 장비를 찾았을 경우
+     			if (mUsbManager.hasPermission(accessory)) {
+     				showMessage("onresume : USB Host 연결됨.");
+     				openAccessory(accessory);
+     			} else {
+     				synchronized (mUsbReceiver) {
+     					if (!mPermissionRequestPending) {
+     						mUsbManager.requestPermission(accessory,
+     								mPermissionIntent); // USB 연결을 통해 장비에 연결해도 되는지 사용자에게 문의
+     						mPermissionRequestPending = true; // 연결권한을 물어보드 코드를 실행했음을 표시
+     					}
+     				}
+     			}
+     		} else {
+     			Log.d(AdkExampleActivity.class.getName(), "mAccessory is null");
+     		}
 // TODO: Part 1/Step 6: Foreground Dispatch (Detect Tags)
         // Retrieve an instance of the NfcAdapter:
         NfcManager nfcManager = (NfcManager) this.getSystemService(Context.NFC_SERVICE);
@@ -133,6 +227,7 @@ public class NFCReaderWriterDemo extends Activity {
     @Override
     public void onPause() {
         super.onPause();
+        closeAccessory();
 
 // TODO: Part 1/Step 7: Cleanup Foreground Dispatch
         // Disable foreground dispatch:
@@ -370,5 +465,29 @@ public class NFCReaderWriterDemo extends Activity {
                 break;
         }
     }
-    
+ // 액티비티가 소멸될 때 호출
+  	@Override
+  	protected void onDestroy() {
+  		// 브로드캐스트 리시버를 제거
+  		unregisterReceiver(mUsbReceiver);
+  		super.onDestroy();
+  	}
+  	
+    private void openAccessory(UsbAccessory accessory){
+		mAccessory = accessory;
+        if(handler == null)
+            handler = new AdkHandler();
+
+       handler.open(mUsbManager, mAccessory);
+	}
+	
+	private void closeAccessory(){
+        if(handler != null && handler.isConnected())
+            handler.close();
+        mAccessory = null;
+    }
+	
+	private void showMessage(String msg){
+		txtMsg.setText(msg);
+	}   
 }
