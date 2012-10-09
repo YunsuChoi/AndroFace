@@ -133,14 +133,11 @@ public class NFCReaderWriterDemo extends Activity {
     private AdkHandler handler;
     
     // Working?
-    private String uri; // should get data from urlBytes. Not this private class
-    //private String keyCode;
+    //private String uri; // should get data from urlBytes. Not this private class
+    private String keyCode;
+    private String padLock;
     
     private boolean isChecked = false;
-    
-    // String 참조?
-    //private View keyCode = findViewById(R.id.keyCode);
-    //코드가 걸레짝이여..
     
     /**
      * Called when the activity is first created.
@@ -152,7 +149,8 @@ public class NFCReaderWriterDemo extends Activity {
         txtMsg = (TextView)this.findViewById(R.id.txtMsg);
         btnLed = (ToggleButton)this.findViewById(R.id.btnLed); // 버튼
         
-        //keyCode = "NFC";
+        padLock = "NFC";
+        keyCode = "NFC";
         
         //Android Accessory Protocol을 구현한 장비의 연결에 대한 브로드캐스트 리시버 등록
       	IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
@@ -167,7 +165,7 @@ public class NFCReaderWriterDemo extends Activity {
         	@Override
             public void onCheckedChanged(CompoundButton buttonView,
                                      boolean isChecked) {
-				if(handler != null && handler.isConnected()){ // && urlStr == keyCode
+				if(handler != null && handler.isConnected() && padLock == keyCode ){ // && ARG_MESSAGE == keyCode
                       handler.write((byte)0x1, (byte)0x0, isChecked ? 1 : 0);
                       showMessage("AndroFace " + (isChecked ? "On" : "Off"));
                  }
