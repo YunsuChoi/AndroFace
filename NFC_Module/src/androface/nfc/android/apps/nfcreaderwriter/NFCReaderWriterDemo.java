@@ -88,7 +88,7 @@ public class NFCReaderWriterDemo extends Activity {
 						// 수락했을 경우
 						showMessage("receiver : USB Host 연결됨.");
 					} else {
-						Log.d(AdkExampleActivity.class.getName(), 
+						Log.d(NFCReaderWriterDemo.class.getName(), 
 								"permission denied for accessory "
 								+ accessory);
 					}
@@ -131,6 +131,17 @@ public class NFCReaderWriterDemo extends Activity {
 	private boolean mPermissionRequestPending;
 	private ToggleButton btnLed;
     private AdkHandler handler;
+    
+    // Working?
+    private String uri; // should get data from urlBytes. Not this private class
+    //private String keyCode;
+    
+    private boolean isChecked = false;
+    
+    // String 참조?
+    //private View keyCode = findViewById(R.id.keyCode);
+    //코드가 걸레짝이여..
+    
     /**
      * Called when the activity is first created.
      */
@@ -140,7 +151,9 @@ public class NFCReaderWriterDemo extends Activity {
         setContentView(R.layout.main);
         txtMsg = (TextView)this.findViewById(R.id.txtMsg);
         btnLed = (ToggleButton)this.findViewById(R.id.btnLed); // 버튼
-
+        
+        //keyCode = "NFC";
+        
         //Android Accessory Protocol을 구현한 장비의 연결에 대한 브로드캐스트 리시버 등록
       	IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
       	filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
@@ -154,9 +167,9 @@ public class NFCReaderWriterDemo extends Activity {
         	@Override
             public void onCheckedChanged(CompoundButton buttonView,
                                      boolean isChecked) {
-                 if(handler != null && handler.isConnected()){
+				if(handler != null && handler.isConnected()){ // && urlStr == keyCode
                       handler.write((byte)0x1, (byte)0x0, isChecked ? 1 : 0);
-                      showMessage("Printer" + (isChecked ? "Start" : "END"));
+                      showMessage("AndroFace " + (isChecked ? "On" : "Off"));
                  }
             }});
 // TODO: Part 1/Step 4: Creating our Activity
@@ -200,7 +213,7 @@ public class NFCReaderWriterDemo extends Activity {
      				}
      			}
      		} else {
-     			Log.d(AdkExampleActivity.class.getName(), "mAccessory is null");
+     			Log.d(NFCReaderWriterDemo.class.getName(), "mAccessory is null");
      		}
 // TODO: Part 1/Step 6: Foreground Dispatch (Detect Tags)
         // Retrieve an instance of the NfcAdapter:
@@ -262,7 +275,7 @@ public class NFCReaderWriterDemo extends Activity {
      * @param data                The intent we received and want to process.
      * @param foregroundDispatch  True if this intent was received through foreground dispatch.
      */
-    private void resolveIntent(Intent data, boolean foregroundDispatch) {
+    public void resolveIntent(Intent data, boolean foregroundDispatch) {
         String action = data.getAction();
 
 // TODO: Part 3/Step 2: Handle NDEF_DISCOVERED Intent
@@ -397,6 +410,7 @@ public class NFCReaderWriterDemo extends Activity {
                                     tagInfo.append("URI: ").append(uri).append("\n");
                                 }
                             }
+                            
                         }
                     }
                 }
@@ -405,7 +419,7 @@ public class NFCReaderWriterDemo extends Activity {
                 Bundle args = new Bundle();
                 args.putString(ARG_MESSAGE, tagInfo.toString());
                 showDialog(DIALOG_NEW_TAG, args);
-
+               
 // TODO: Part 1/Step 8: Receive Foreground Dispatch Intent
             }
         }
@@ -465,9 +479,8 @@ public class NFCReaderWriterDemo extends Activity {
                 break;
         }
     }
- // 액티비티가 소멸될 때 호출
   	@Override
-  	protected void onDestroy() {
+  	protected void onDestroy() { // 액티비티가 소멸될 때 호출
   		// 브로드캐스트 리시버를 제거
   		unregisterReceiver(mUsbReceiver);
   		super.onDestroy();

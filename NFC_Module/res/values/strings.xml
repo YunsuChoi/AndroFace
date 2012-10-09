@@ -33,5 +33,9 @@
 -->
 <resources>
     <string name="app_name">Project AndroFace_NFC</string>
-    <string name="hello">ADK does not connected</string>
+    <string name="hello">ADK board is not connected yet</string>
+
+    <string name="padlock"></string>
+    <string name="keyCode">launchNFC</string>
+    
 </resources>
