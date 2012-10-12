@@ -109,6 +109,7 @@ public class NFCReaderWriterDemo extends Activity {
 		}
 	};
 	
+	
 // TODO: Part 1/Step 4: Creating our Activity
     private static final int DIALOG_WRITE_URL = 1;
     private EditText mMyUrl;
@@ -131,14 +132,13 @@ public class NFCReaderWriterDemo extends Activity {
 	private boolean mPermissionRequestPending;
 	private ToggleButton btnLed;
     private AdkHandler handler;
-    
-    // Working?
-    //private String uri; // should get data from urlBytes. Not this private class
-    private String keyCode;
-    private String padLock;
-    
     private boolean isChecked = false;
+    private static final int AdkCommandStr = 4;
     
+    // get specific string from string.xml
+    //private final String keyCode = getResources().getString(R.string.keyCode);
+    private String keyCode = "NFC";
+    private TextView keyCodeView;
     /**
      * Called when the activity is first created.
      */
@@ -146,11 +146,10 @@ public class NFCReaderWriterDemo extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
         txtMsg = (TextView)this.findViewById(R.id.txtMsg);
         btnLed = (ToggleButton)this.findViewById(R.id.btnLed); // 버튼
-        
-        padLock = "NFC";
-        keyCode = "NFC";
+        keyCodeView =(TextView)this.findViewById(R.id.keyCodeView);
         
         //Android Accessory Protocol을 구현한 장비의 연결에 대한 브로드캐스트 리시버 등록
       	IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
@@ -165,11 +164,12 @@ public class NFCReaderWriterDemo extends Activity {
         	@Override
             public void onCheckedChanged(CompoundButton buttonView,
                                      boolean isChecked) {
-				if(handler != null && handler.isConnected() && padLock == keyCode ){ // && ARG_MESSAGE == keyCode
+				if(handler != null && handler.isConnected()){  
                       handler.write((byte)0x1, (byte)0x0, isChecked ? 1 : 0);
                       showMessage("AndroFace " + (isChecked ? "On" : "Off"));
                  }
             }});
+        
 // TODO: Part 1/Step 4: Creating our Activity
         mMyUrl = (EditText) findViewById(R.id.myUrl);
         mMyWriteUrlButton = (Button) findViewById(R.id.myWriteUrlButton);
@@ -213,6 +213,7 @@ public class NFCReaderWriterDemo extends Activity {
      		} else {
      			Log.d(NFCReaderWriterDemo.class.getName(), "mAccessory is null");
      		}
+     		
 // TODO: Part 1/Step 6: Foreground Dispatch (Detect Tags)
         // Retrieve an instance of the NfcAdapter:
         NfcManager nfcManager = (NfcManager) this.getSystemService(Context.NFC_SERVICE);
@@ -273,7 +274,7 @@ public class NFCReaderWriterDemo extends Activity {
      * @param data                The intent we received and want to process.
      * @param foregroundDispatch  True if this intent was received through foreground dispatch.
      */
-    public void resolveIntent(Intent data, boolean foregroundDispatch) {
+    private void resolveIntent(Intent data, boolean foregroundDispatch) {
         String action = data.getAction();
 
 // TODO: Part 3/Step 2: Handle NDEF_DISCOVERED Intent
@@ -298,13 +299,13 @@ public class NFCReaderWriterDemo extends Activity {
                 // Convert to URL to byte array (UTF-8 encoded):
                 byte[] urlBytes = urlStr.getBytes(Charset.forName("UTF-8"));
 
-                // Use UriRecordHelper to determine an efficient encoding:
-                byte[] urlPayload = new byte[urlBytes.length + 1];
-                urlPayload[0] = 0;  // no prefix reduction
-                System.arraycopy(urlBytes, 0, urlPayload, 1, urlBytes.length);
+                //// Use UriRecordHelper to determine an efficient encoding:
+                //byte[] urlPayload = new byte[urlBytes.length + 1];
+                //urlPayload[0] = 0;  // no prefix reduction
+                //System.arraycopy(urlBytes, 0, urlPayload, 1, urlBytes.length);
 
-                //// Better: Use UriRecordHelper to determine an efficient encoding:
-                //byte[] urlPayload = UriRecordHelper.encodeUriRecordPayload(urlStr);
+                // Better: Use UriRecordHelper to determine an efficient encoding:
+                byte[] urlPayload = UriRecordHelper.encodeUriRecordPayload(urlStr);
 
                 // Create a NDEF URI record (NFC Forum well-known type "urn:nfc:wkt:U")
                 NdefRecord urlRecord = new NdefRecord(
@@ -366,10 +367,11 @@ public class NFCReaderWriterDemo extends Activity {
               
                 // Retrieve information from tag and display it
                 StringBuilder tagInfo = new StringBuilder();
-
+            	String tagUriData;
+            	
                 // Get tag's UID:
                 byte[] uid = tag.getId();
-                tagInfo.append("UID: ").append(StringUtils.convertByteArrayToHexString(uid)).append("\n\n");
+                //*tagInfo.append("UID: ").append(StringUtils.convertByteArrayToHexString(uid)).append("\n\n");
 
 // TODO: Part 2/Step 3: Read NDEF Message from Tag
                 // Get tag's NDEF messages:
@@ -399,13 +401,14 @@ public class NFCReaderWriterDemo extends Activity {
                                         && Arrays.equals(records[j].getType(), NdefRecord.RTD_URI)) {
                                     byte[] payload = records[j].getPayload();
                                     
-                                    // Drop prefix identifier byte and convert remaining URL to string (UTF-8):
-                                    String uri = new String(Arrays.copyOfRange(payload, 1, payload.length), Charset.forName("UTF-8"));
+                                    //// Drop prefix identifier byte and convert remaining URL to string (UTF-8):
+                                    //String uri = new String(Arrays.copyOfRange(payload, 1, payload.length), Charset.forName("UTF-8"));
 
-                                    //// Better: Use UriRecordHelper to decode URI record payload:
-                                    //String uri = UriRecordHelper.decodeUriRecordPayload(payload);
+                                    // Better: Use UriRecordHelper to decode URI record payload:
+                                    String uri = UriRecordHelper.decodeUriRecordPayload(payload);
                                     
-                                    tagInfo.append("URI: ").append(uri).append("\n");
+                                    //*tagInfo.append("URI: ").append(uri).append("\n");
+                                    tagInfo.append(uri);
                                 }
                             }
                             
@@ -416,14 +419,40 @@ public class NFCReaderWriterDemo extends Activity {
 // TODO: Part 2/Step 5: Display Tag Data in a Dialog Box
                 Bundle args = new Bundle();
                 args.putString(ARG_MESSAGE, tagInfo.toString());
-                showDialog(DIALOG_NEW_TAG, args);
+                dataMatched(AdkCommandStr, args);
+                //showDialog(DIALOG_NEW_TAG, args);
                
 // TODO: Part 1/Step 8: Receive Foreground Dispatch Intent
             }
         }
     }
 }
-    /**
+	public void dataMatched(int id, Bundle args){
+		switch (id){
+			case AdkCommandStr:
+				if (args != null) {
+                    String message = args.getString(ARG_MESSAGE);
+                    if (message.equals(keyCode)) {
+                    	showMessage("keyCode Matched!!!");
+                        keyMessage(message);
+                    	if(handler != null && handler.isConnected()){
+                			handler.write((byte)0x1, (byte)0x0, (int) 1);
+                		}
+                    }
+                    else{
+                    	showMessage("Wrong KeyCode...");
+                    	keyMessage(message);
+                    	if(handler !=null && handler.isConnected()){
+                    		handler.write((byte)0x1, (byte)0x0, (int) 0);
+                    		
+                    	}
+                    }
+				}
+				break;
+		}
+	}
+
+	/**
      * Called when a dialog is created.
      */
     @Override
@@ -458,7 +487,6 @@ public class NFCReaderWriterDemo extends Activity {
                         })
                         .create();
         }
-
         return null;
     }
 
@@ -472,7 +500,7 @@ public class NFCReaderWriterDemo extends Activity {
             case DIALOG_NEW_TAG:
                 if (args != null) {
                     String message = args.getString(ARG_MESSAGE);
-                    if (message != null) { ((AlertDialog) dialog).setMessage(message); }
+                    if (message != null) { ((AlertDialog) dialog).setMessage(message);}
                 }
                 break;
         }
@@ -500,5 +528,13 @@ public class NFCReaderWriterDemo extends Activity {
 	
 	private void showMessage(String msg){
 		txtMsg.setText(msg);
-	}   
-}
+	}
+	
+	private void keyMessage(String msg){
+		keyCodeView.setText(msg);
+	}
+	
+	
+
+	}
+

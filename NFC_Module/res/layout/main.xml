@@ -61,10 +61,10 @@
 		    android:layout_marginRight="30dp"
 		    android:text="LED"/>
 		
-<TextView android:id="@+id/keyCode"
+<TextView android:id="@+id/keyCodeView"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:text="@string/keyCode" 
+	        android:text="KeyCode is.....?" 
 	        android:gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="URL:"
+            android:text="URI:"
             android:textStyle="normal"
             android:gravity="left"
             android:layout_marginLeft="30dp"
