@@ -151,6 +151,16 @@ public class NFCReaderWriterDemo extends Activity {
 	    		if(handler != null && handler.isConnected()){
 	        		btnLed.setChecked(true);
 	        		//handler.write((byte)0x1, (byte)0x0, (int) 1);
+	        		long starttime = System.currentTimeMillis(), curtime = 0;
+	        		
+	        		while(true) {
+	        			curtime = System.currentTimeMillis();
+	        			if(curtime-starttime>3000) {
+	        				btnLed.setChecked(false);
+	        				break;
+	        			}
+	        		}
+	        		
 	    		}		
     		} else if(msg.what==1) {
             	if(handler !=null && handler.isConnected()){
