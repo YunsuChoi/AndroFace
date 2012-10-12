@@ -32,8 +32,10 @@
  */
 package androface.nfc.android.apps.nfcreaderwriter;
 
+import java.nio.charset.Charset;
+import java.util.Arrays;
+
 import androface.nfc.ndef.UriRecordHelper;
-import androface.nfc.utils.StringUtils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -51,18 +53,17 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-
-import java.nio.charset.Charset;
-import java.util.Arrays;
 
 import com.android.future.usb.UsbAccessory;
 import com.android.future.usb.UsbManager;
@@ -142,6 +143,26 @@ public class NFCReaderWriterDemo extends Activity {
     /**
      * Called when the activity is first created.
      */
+    
+    private Handler mHandler = new Handler() {
+    	@Override
+    	public void handleMessage(Message msg) {
+    		if(msg.what==0) {
+	    		if(handler != null && handler.isConnected()){
+	        		btnLed.setChecked(true);
+	        		//handler.write((byte)0x1, (byte)0x0, (int) 1);
+	    		}		
+    		} else if(msg.what==1) {
+            	if(handler !=null && handler.isConnected()){
+            		btnLed.setChecked(false);
+//            		handler.write((byte)0x1, (byte)0x0, (int) 0);
+            		
+            	}
+    		}
+    		
+    	}
+    };
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -435,17 +456,26 @@ public class NFCReaderWriterDemo extends Activity {
                     if (message.equals(keyCode)) {
                     	showMessage("keyCode Matched!!!");
                         keyMessage(message);
-                    	if(handler != null && handler.isConnected()){
-                			handler.write((byte)0x1, (byte)0x0, (int) 1);
-                		}
+                        
+                        mHandler.post(new Runnable() {
+							@Override
+							public void run() {
+								mHandler.sendEmptyMessage(0);
+							}
+                        });
+                        
                     }
                     else{
                     	showMessage("Wrong KeyCode...");
                     	keyMessage(message);
-                    	if(handler !=null && handler.isConnected()){
-                    		handler.write((byte)0x1, (byte)0x0, (int) 0);
-                    		
-                    	}
+                    	
+                    	mHandler.post(new Runnable() {
+							@Override
+							public void run() {
+								mHandler.sendEmptyMessage(1);
+							}
+                        });
+                        
                     }
 				}
 				break;
