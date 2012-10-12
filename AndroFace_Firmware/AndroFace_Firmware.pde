@@ -44,7 +44,7 @@ void loop() // loop phase is imcomplete,
 {
   byte msg[3];
   /* for debug?
-  if (acc.isConnected()) {
+   if (acc.isConnected()) {
    Serial.print("Accessory connected.\n");
    int len = acc.read(msg, sizeof(msg), -1);
    Serial.print("Message length: ");
@@ -70,10 +70,32 @@ void loop() // loop phase is imcomplete,
           else if(msg[2]!=1)
           {
             //acc.write(msg, 3);
-            analogWrite(firstLED, 0);
+            //analogWrite(firstLED, 0);
+            for(angle=0; angle<180; angle += 1){
+              angle1 = 180 - angle;
+              angle2 = 0 + (angle);
+              analogWrite(firstLED, angle);
+              analogWrite(secondLED, angle);
+
+              myservo1.write(angle1);
+              myservo2.write(angle2);
+              myservo3.write(90);
+              delay(10); // DO NOT set delay(x) below 2
+            }
+            for(angle=180; angle>=1; angle--){
+              angle1 = 180 - angle;
+              angle2 = 0 + (angle);
+              analogWrite(firstLED, angle);
+              analogWrite(secondLED, angle);
+
+              myservo1.write(angle1);
+              myservo2.write(angle2);
+              myservo3.write(0);
+              delay(10);
+            }
           }
           /*
-            while (msg[2]!=1){ // data from android.
+            while (msg[2]==0){ // data from android.
            // http://beanbox.co.kr/textcube?page=5
            for(angle=0; angle<180; angle += 1){
            angle1 = 180 - angle;
@@ -96,8 +118,9 @@ void loop() // loop phase is imcomplete,
            myservo2.write(angle2);
            myservo3.write(0);
            delay(10);
-           }  
-           if (msg[2]!=0) break;
+           }
+           
+           if (msg[2]==1) break;
            }
            */
         }
@@ -136,9 +159,10 @@ void loop() // loop phase is imcomplete,
     myservo2.write(0); // right Ear
     myservo3.write(90); // Close Mouth
     analogWrite(firstLED, 50); // eye on (0~180)
-    analogWrite(secondLED, 10); // eye on
+    analogWrite(secondLED, 50); // eye on
   }
 }
+
 
 
 
