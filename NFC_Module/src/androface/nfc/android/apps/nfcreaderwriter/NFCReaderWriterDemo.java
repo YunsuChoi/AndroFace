@@ -138,7 +138,7 @@ public class NFCReaderWriterDemo extends Activity {
     
     // get specific string from string.xml
     //private final String keyCode = getResources().getString(R.string.keyCode);
-    private String keyCode = "NFC";
+    private String keyCode = "Project AndroFace | Yunsu Choi";
     private TextView keyCodeView;
     /**
      * Called when the activity is first created.
@@ -155,7 +155,7 @@ public class NFCReaderWriterDemo extends Activity {
 	        		
 	        		while(true) {
 	        			curtime = System.currentTimeMillis();
-	        			if(curtime-starttime>3000) {
+	        			if(curtime-starttime>5000) {
 	        				btnLed.setChecked(false);
 	        				break;
 	        			}

@@ -1,3 +1,9 @@
+/* 
+ Project AndroFace 
+ Author: Yunsu Choi 
+ Source Code: https://github.com/YunsuChoi
+ */
+
 #include <Wire.h>
 #include <Servo.h>
 
@@ -62,37 +68,52 @@ void loop() // loop phase is imcomplete,
           if (msg[2]==1){ // data from android.
             //acc.write(msg, 3);
             analogWrite(firstLED, 180);
-            delay(1000);
-            analogWrite(firstLED, 0);
-            delay(1000);
-            analogWrite(firstLED, 180);
+            analogWrite(secondLED, 180);
+            myservo3.write(90);
+            delay(5000); // DO NOT set delay(x) below 2
+            myservo3.write(0);
+            analogWrite(firstLED, 0);   
+            analogWrite(secondLED, 0);
           }
+          /*
+            analogWrite(firstLED, 180);
+           delay(1000);
+           analogWrite(firstLED, 0);
+           delay(1000);
+           analogWrite(firstLED, 180);
+           */
+
           else if(msg[2]!=1)
           {
+            myservo3.write(0);
+            analogWrite(firstLED, 180);
+            analogWrite(secondLED, 180);
             //acc.write(msg, 3);
             //analogWrite(firstLED, 0);
+            /*
             for(angle=0; angle<180; angle += 1){
-              angle1 = 180 - angle;
-              angle2 = 0 + (angle);
-              analogWrite(firstLED, angle);
-              analogWrite(secondLED, angle);
-
-              myservo1.write(angle1);
-              myservo2.write(angle2);
-              myservo3.write(90);
-              delay(10); // DO NOT set delay(x) below 2
-            }
-            for(angle=180; angle>=1; angle--){
-              angle1 = 180 - angle;
-              angle2 = 0 + (angle);
-              analogWrite(firstLED, angle);
-              analogWrite(secondLED, angle);
-
-              myservo1.write(angle1);
-              myservo2.write(angle2);
-              myservo3.write(0);
-              delay(10);
-            }
+             angle1 = 180 - angle;
+             angle2 = 0 + (angle);
+             analogWrite(firstLED, angle);
+             analogWrite(secondLED, angle);
+             
+             myservo1.write(angle1);
+             myservo2.write(angle2);
+             //myservo3.write(90);
+             delay(10); // DO NOT set delay(x) below 2
+             }
+             for(angle=180; angle>=1; angle--){
+             angle1 = 180 - angle;
+             angle2 = 0 + (angle);
+             analogWrite(firstLED, angle);
+             analogWrite(secondLED, angle);
+             
+             myservo1.write(angle1);
+             myservo2.write(angle2);
+             //myservo3.write(0);
+             delay(10);
+             }
+             */
           }
           /*
             while (msg[2]==0){ // data from android.
@@ -157,11 +178,14 @@ void loop() // loop phase is imcomplete,
     // reset outputs to default values when no input in a 10seconds.
     myservo1.write(180);  // left Ear
     myservo2.write(0); // right Ear
-    myservo3.write(90); // Close Mouth
+    myservo3.write(0); // Close Mouth
     analogWrite(firstLED, 50); // eye on (0~180)
     analogWrite(secondLED, 50); // eye on
   }
 }
+
+
+
 
 
 
