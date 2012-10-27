@@ -183,20 +183,3 @@ void loop() // loop phase is imcomplete,
     analogWrite(secondLED, 50); // eye on
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

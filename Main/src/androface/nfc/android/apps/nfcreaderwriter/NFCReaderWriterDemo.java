@@ -254,7 +254,7 @@ public class NFCReaderWriterDemo extends Activity {
      				openAccessory(accessory);
      				
      				//sound
-     				pool.play(wheatley_hello, 1, 1, 0, 0, 1);
+     				//pool.play(wheatley_hello, 1, 1, 0, 0, 1);
      				
      			} else {
      				synchronized (mUsbReceiver) {
