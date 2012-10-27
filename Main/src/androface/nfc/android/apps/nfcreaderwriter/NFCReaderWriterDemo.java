@@ -491,7 +491,7 @@ public class NFCReaderWriterDemo extends Activity {
                     	showMessage("keyCode Matched!!!");
                         keyMessage(message);
                         
-                        pool.play(turret_dispense, 1, 1, 0, 0, 1);
+                        //pool.play(turret_dispense, 1, 1, 0, 0, 1);
                         
                         mHandler.post(new Runnable() {
 							@Override
@@ -505,7 +505,7 @@ public class NFCReaderWriterDemo extends Activity {
                     	showMessage("Wrong KeyCode...");
                     	keyMessage(message);
                     	
-                    	pool.play(turret_disable, 1,1,0,0,1);
+                    	//pool.play(turret_disable, 1,1,0,0,1);
                     	
                     	mHandler.post(new Runnable() {
 							@Override
