@@ -45,6 +45,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -140,6 +142,13 @@ public class NFCReaderWriterDemo extends Activity {
     //private final String keyCode = getResources().getString(R.string.keyCode);
     private String keyCode = "Project AndroFace | Yunsu Choi";
     private TextView keyCodeView;
+    
+    // Testing Sound.
+    SoundPool pool;
+    int whitley;
+    int turret;
+    
+    
     /**
      * Called when the activity is first created.
      */
@@ -181,6 +190,11 @@ public class NFCReaderWriterDemo extends Activity {
         txtMsg = (TextView)this.findViewById(R.id.txtMsg);
         btnLed = (ToggleButton)this.findViewById(R.id.btnLed); // 버튼
         keyCodeView =(TextView)this.findViewById(R.id.keyCodeView);
+        
+        // Testing Sound.
+        pool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        whitley = pool.load(this, R.raw.wheatley, 1);
+        turret = pool.load(this, R.raw.turret_autosearch_1 ,1);
         
         //Android Accessory Protocol을 구현한 장비의 연결에 대한 브로드캐스트 리시버 등록
       	IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
@@ -467,6 +481,8 @@ public class NFCReaderWriterDemo extends Activity {
                     	showMessage("keyCode Matched!!!");
                         keyMessage(message);
                         
+                        pool.play(whitley, 1, 1, 0, 0, 1);
+                        
                         mHandler.post(new Runnable() {
 							@Override
 							public void run() {
@@ -478,6 +494,8 @@ public class NFCReaderWriterDemo extends Activity {
                     else{
                     	showMessage("Wrong KeyCode...");
                     	keyMessage(message);
+                    	
+                    	pool.play(turret, 1,1,0,0,1);
                     	
                     	mHandler.post(new Runnable() {
 							@Override
