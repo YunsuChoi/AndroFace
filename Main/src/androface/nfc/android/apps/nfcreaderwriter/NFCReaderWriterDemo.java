@@ -107,6 +107,8 @@ public class NFCReaderWriterDemo extends Activity {
 				if (accessory != null && accessory.equals(mAccessory)) {
 					showMessage("USB Host 연결 해제됨.");
 					closeAccessory();
+					
+					
 				}
 			}
 		}
@@ -143,11 +145,13 @@ public class NFCReaderWriterDemo extends Activity {
     private String keyCode = "Project AndroFace | Yunsu Choi";
     private TextView keyCodeView;
     
-    // Testing Sound.
+    //Sound.
     SoundPool pool;
-    int whitley;
-    int turret;
-    
+	    int wheatley_hello;
+	    //int wheatley_disappointing;
+	    int turret_hello;
+	    int turret_dispense;
+	    int turret_disable;
     
     /**
      * Called when the activity is first created.
@@ -193,9 +197,11 @@ public class NFCReaderWriterDemo extends Activity {
         
         // Testing Sound.
         pool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        whitley = pool.load(this, R.raw.wheatley, 1);
-        turret = pool.load(this, R.raw.turret_autosearch_1 ,1);
-        
+	        wheatley_hello = pool.load(this, R.raw.wheatley_hello, 1);
+	        turret_hello = pool.load(this, R.raw.turret_autosearch_1 ,1);
+	        turret_dispense = pool.load(this, R.raw.turret_dispensing ,1);
+	        turret_disable = pool.load(this, R.raw.turret_disabled_2 ,1);
+	        
         //Android Accessory Protocol을 구현한 장비의 연결에 대한 브로드캐스트 리시버 등록
       	IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
       	filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
@@ -246,6 +252,10 @@ public class NFCReaderWriterDemo extends Activity {
      			if (mUsbManager.hasPermission(accessory)) {
      				showMessage("onresume : USB Host 연결됨.");
      				openAccessory(accessory);
+     				
+     				//sound
+     				pool.play(wheatley_hello, 1, 1, 0, 0, 1);
+     				
      			} else {
      				synchronized (mUsbReceiver) {
      					if (!mPermissionRequestPending) {
@@ -481,7 +491,7 @@ public class NFCReaderWriterDemo extends Activity {
                     	showMessage("keyCode Matched!!!");
                         keyMessage(message);
                         
-                        pool.play(whitley, 1, 1, 0, 0, 1);
+                        pool.play(turret_dispense, 1, 1, 0, 0, 1);
                         
                         mHandler.post(new Runnable() {
 							@Override
@@ -495,7 +505,7 @@ public class NFCReaderWriterDemo extends Activity {
                     	showMessage("Wrong KeyCode...");
                     	keyMessage(message);
                     	
-                    	pool.play(turret, 1,1,0,0,1);
+                    	pool.play(turret_disable, 1,1,0,0,1);
                     	
                     	mHandler.post(new Runnable() {
 							@Override
