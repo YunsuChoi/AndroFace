@@ -34,7 +34,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="androface.nfc.android.apps.nfcreaderwriter"
       android:versionCode="1"
-      android:versionName="1.0">
+      android:versionName="1.6">
 <!-- TODO: Part 1/Step 2: Android Manifest & NFC -->
     <!-- Require at least API level 10 (Android 2.3.3 and later): -->
     <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="15" />

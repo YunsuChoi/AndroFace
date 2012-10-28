@@ -90,6 +90,9 @@ public class NFCReaderWriterDemo extends Activity {
 							UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
 						// 수락했을 경우
 						showMessage("receiver : USB Host 연결됨.");
+						//sound
+	     				//pool.play(wheatley_hello, 1, 1, 0, 0, 1);
+						
 					} else {
 						Log.d(NFCReaderWriterDemo.class.getName(), 
 								"permission denied for accessory "
@@ -107,7 +110,7 @@ public class NFCReaderWriterDemo extends Activity {
 				if (accessory != null && accessory.equals(mAccessory)) {
 					showMessage("USB Host 연결 해제됨.");
 					closeAccessory();
-					
+					pool.play(wheatley_hello, 1, 1, 0, 0, 1); // Temp reset sound
 					
 				}
 			}
@@ -163,7 +166,6 @@ public class NFCReaderWriterDemo extends Activity {
     		if(msg.what==0) {
 	    		if(handler != null && handler.isConnected()){
 	        		btnLed.setChecked(true);
-	        		//handler.write((byte)0x1, (byte)0x0, (int) 1);
 	        		long starttime = System.currentTimeMillis(), curtime = 0;
 	        		
 	        		while(true) {
@@ -491,7 +493,7 @@ public class NFCReaderWriterDemo extends Activity {
                     	showMessage("keyCode Matched!!!");
                         keyMessage(message);
                         
-                        //pool.play(turret_dispense, 1, 1, 0, 0, 1);
+                        pool.play(turret_dispense, 1, 1, 0, 0, 1);
                         
                         mHandler.post(new Runnable() {
 							@Override
@@ -505,7 +507,7 @@ public class NFCReaderWriterDemo extends Activity {
                     	showMessage("Wrong KeyCode...");
                     	keyMessage(message);
                     	
-                    	//pool.play(turret_disable, 1,1,0,0,1);
+                    	pool.play(turret_disable, 1,1,0,0,1);
                     	
                     	mHandler.post(new Runnable() {
 							@Override
@@ -602,7 +604,5 @@ public class NFCReaderWriterDemo extends Activity {
 		keyCodeView.setText(msg);
 	}
 	
-	
-
 	}
 
