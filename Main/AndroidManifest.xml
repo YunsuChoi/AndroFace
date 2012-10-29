@@ -37,7 +37,7 @@
       android:versionName="1.6">
 <!-- TODO: Part 1/Step 2: Android Manifest & NFC -->
     <!-- Require at least API level 10 (Android 2.3.3 and later): -->
-    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="15" />
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="16" />
     <!-- Request permission to use NFC functionality: -->
     <uses-permission android:name="android.permission.NFC" />
     <!-- Restrict app to devices with NFC hardware: -->
@@ -45,7 +45,7 @@
     <!-- Request permission to use ADK functionality: -->
     <uses-feature android:name="android.hardware.usb.accessory"/>
     
-    <application android:label="@string/app_name" >
+    <application android:label="@string/app_name" android:theme="@android:style/Theme.Holo">
         <uses-library android:name="com.android.future.usb.accessory" /><!-- USB ADK Permission -->
         <activity android:name="NFCReaderWriterDemo"
                   android:label="@string/app_name"

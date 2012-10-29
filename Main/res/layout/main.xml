@@ -47,8 +47,8 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/hello" 
 	        android:gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"/>
 	  <!-- ADK Manual command Button -->
@@ -57,8 +57,8 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:gravity="center"
-		    android:layout_marginLeft="30dp"
-		    android:layout_marginRight="30dp"
+		    android:layout_marginLeft="15dp"
+		    android:layout_marginRight="15dp"
 		    android:text="LED"/>
 		
 <TextView android:id="@+id/keyCodeView"
@@ -66,8 +66,8 @@
 	        android:layout_height="wrap_content"
 	        android:text="KeyCode is.....?" 
 	        android:gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"/>
 
@@ -78,8 +78,8 @@
             android:text="URI:"
             android:textStyle="normal"
             android:gravity="left"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp" />
         <EditText
@@ -90,8 +90,8 @@
             android:inputType="textUri"
             android:textStyle="normal"
             android:gravity="left"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="10dp" />
         <Button
@@ -100,8 +100,8 @@
             android:layout_height="wrap_content"
             android:text="Write to NFC Tag..."
             android:textStyle="normal"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="15dp"
             android:gravity="center" />
