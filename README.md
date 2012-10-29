@@ -22,7 +22,7 @@ by identifying NFC tag`s Specfic UID or NDEF data, sending command to Arduino bo
 ## Additional infomations ##
 - ADK library is based on [ADK 2011](http://developer.android.com/intl/ko/tools/adk/adk.html) which annouenced at Google I/O 2011.
 - [NFC function](https://github.com/YunsuChoi/AndroFace/tree/master/Main) is from [Michael Roland](http://www.mroland.at/projects/nfc-taginfo/)
-- Sound is from "[Portal 2](http://www.thinkwithportals.com/)" by [Valve Corp.](http://www.valvesoftware.com/)
+- [Sound resource](https://github.com/YunsuChoi/AndroFace/tree/master/Main/res/raw) is from "[Portal 2](http://www.thinkwithportals.com/ "thinkwithportals.com")" by [Valve Corp.](http://www.valvesoftware.com/)
 
 ----------
 See also
@@ -30,6 +30,6 @@ See also
 - Youtube: [Project AndroFace | youtube.com/watch?v=T1asxIxMzGE](http://www.youtube.com/watch?v=T1asxIxMzGE "Project AndroFace")
 
 
-Document Written date : 2012-10-27. 18:30 (GMT+09:00)
+Document update : 2012-10-29. 17:12 (GMT+09:00)
 
 ----------
