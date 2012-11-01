@@ -1,7 +1,7 @@
 #**Project AndroFace**#
 
 
-##This project is for [Google HackFair Korea 2012](http://googledevkr.blogspot.kr/2012/08/google-hackfair.html).##
+##for [Google HackFair Korea 2012](http://googledevkr.blogspot.kr/2012/08/google-hackfair.html).##
 
 *Developed by [Yunsu Choi | goodbye.tigris@gmail.com](mailto:goodbye.tigris@gmail.com "goodbye.tigris@gmail.com")*
 
@@ -14,6 +14,7 @@ by identifying NFC tag`s Specfic UID or NDEF data, sending command to Arduino bo
 
 ## Testing environment ##
 - [Android JellyBean 4.1.2 | Samsung Nexus S](http://developer.android.com/intl/ko/about/versions/android-4.1.html)
+- [Android JellyBean 4.1.2 | Samsung Galaxy S3 LTE(South Korea U+ variant)](http://developer.android.com/intl/ko/about/versions/android-4.1.html)
 - [Android Ice Cream Sandwich 4.0.4 | Samsung Nexus S](http://developer.android.com/intl/ko/about/versions/android-4.0.3.html)
 - [Android Ice Cream Sandwich 4.0.4 | Samsung Galaxy S3 LTE(South Korea U+ variant)](http://developer.android.com/intl/ko/about/versions/android-4.0.3.html), 
 - [Arduino IDE 0023](http://www.arduino.cc/en/Main/software)
@@ -30,6 +31,6 @@ See also
 - Youtube: [Project AndroFace | youtube.com/watch?v=T1asxIxMzGE](http://www.youtube.com/watch?v=T1asxIxMzGE "Project AndroFace")
 
 
-Document update : 2012-10-29. 17:12 (GMT+09:00)
+Document update : 2012-11-02. 02:51 (GMT+09:00)
 
 ----------
