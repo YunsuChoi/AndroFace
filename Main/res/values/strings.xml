@@ -32,7 +32,7 @@
     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <resources>
-    <string name="app_name">Project AndroFace_NFC</string>
+    <string name="app_name">Project AndroFace</string>
     <string name="hello">ADK board is not connected yet</string>
     <string name="keyCode">NFC</string>
     

@@ -11,16 +11,16 @@
 #include <Usb.h>
 #include <AndroidAccessory.h>
 
-const int firstLED = 3;
-const int secondLED = 4;
+//const int firstLED = 3;
+//const int secondLED = 4;
 
-Servo myservo1; // ear left
-Servo myservo2; // ear right
+//Servo myservo1; // ear left
+//Servo myservo2; // ear right
 Servo myservo3; // mouth
 
-int angle = 0;
-int angle1; //left ear
-int angle2; // right ear
+//int angle = 0;
+//int angle1; //left ear
+//int angle2; // right ear
 
 AndroidAccessory acc("Yunsu Choi",
 "AndroFace",
@@ -34,15 +34,15 @@ void setup()
   Serial.begin(115200); // To monitoring ADK by serial port with monitor function in Arduino IDE
   Serial.print("\r\nStart");
 
-  myservo1.attach(9);
-  myservo1.write(0);
-  myservo2.attach(10);
-  myservo2.write(0);
+  //myservo1.attach(9);
+  //myservo1.write(0);
+  //myservo2.attach(10);
+  //myservo2.write(0);
   myservo3.attach(11);
   myservo3.write(90);
 
-  analogWrite(firstLED, 0);
-  analogWrite(secondLED, 0);
+  //analogWrite(firstLED, 0);
+  //analogWrite(secondLED, 0);
 
   acc.powerOn(); //Ignite voltage on a elements
 }
@@ -67,13 +67,13 @@ void loop() // loop phase is imcomplete,
           // int print_msg = (int) msg[2]; // get data from Android and store by int type
           if (msg[2]==1){ // data from android.
             //acc.write(msg, 3);
-            analogWrite(firstLED, 180);
-            analogWrite(secondLED, 180);
+            //analogWrite(firstLED, 180);
+            //analogWrite(secondLED, 180);
             myservo3.write(90);
             delay(5000); // DO NOT set delay(x) below 2
             myservo3.write(0);
-            analogWrite(firstLED, 0);   
-            analogWrite(secondLED, 0);
+            //analogWrite(firstLED, 0);   
+            //analogWrite(secondLED, 0);
           }
           /*
             analogWrite(firstLED, 180);
@@ -86,8 +86,8 @@ void loop() // loop phase is imcomplete,
           else if(msg[2]!=1)
           {
             myservo3.write(0);
-            analogWrite(firstLED, 180);
-            analogWrite(secondLED, 180);
+            //analogWrite(firstLED, 180);
+            //analogWrite(secondLED, 180);
             //acc.write(msg, 3);
             //analogWrite(firstLED, 0);
             /*
@@ -176,10 +176,10 @@ void loop() // loop phase is imcomplete,
   }
   else { // When does NOT Connected to Phone.
     // reset outputs to default values when no input in a 10seconds.
-    myservo1.write(180);  // left Ear
-    myservo2.write(0); // right Ear
+    //myservo1.write(180);  // left Ear
+    //myservo2.write(0); // right Ear
     myservo3.write(0); // Close Mouth
-    analogWrite(firstLED, 50); // eye on (0~180)
-    analogWrite(secondLED, 50); // eye on
+    //analogWrite(firstLED, 50); // eye on (0~180)
+    //analogWrite(secondLED, 50); // eye on
   }
 }

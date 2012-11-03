@@ -146,6 +146,7 @@ public class NFCReaderWriterDemo extends Activity {
     // get specific string from string.xml
     //private final String keyCode = getResources().getString(R.string.keyCode);
     private String keyCode = "Project AndroFace | Yunsu Choi";
+    private String keyCode2 = "https://github.com/YunsuChoi";
     private TextView keyCodeView;
     
     //Sound.
@@ -503,6 +504,22 @@ public class NFCReaderWriterDemo extends Activity {
                         });
                         
                     }
+                    
+                    else if (message.equals(keyCode2)) {
+                    	showMessage("keyCode Matched!!!");
+                        keyMessage(message);
+                        
+                        pool.play(turret_hello, 1, 1, 0, 0, 1);
+                        
+                        mHandler.post(new Runnable() {
+							@Override
+							public void run() {
+								mHandler.sendEmptyMessage(0);
+							}
+                        });
+                        
+                    }
+                    
                     else{
                     	showMessage("Wrong KeyCode...");
                     	keyMessage(message);
