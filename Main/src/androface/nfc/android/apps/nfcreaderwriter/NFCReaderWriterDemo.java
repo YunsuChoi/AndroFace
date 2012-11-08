@@ -110,7 +110,7 @@ public class NFCReaderWriterDemo extends Activity {
 				if (accessory != null && accessory.equals(mAccessory)) {
 					showMessage("USB Host ø¨∞· «ÿ¡¶µ .");
 					closeAccessory();
-					pool.play(wheatley_hello, 1, 1, 0, 0, 1); // Temp reset sound
+					//pool.play(wheatley_hello, 1, 1, 0, 0, 1); // Temp reset sound
 					
 				}
 			}

@@ -1,9 +1,7 @@
 #**Project AndroFace**#
+##for [Google HackFair](http://googledevkr.blogspot.kr/2012/08/google-hackfair.html)##
 
-
-##for [Google HackFair Korea 2012](http://googledevkr.blogspot.kr/2012/08/google-hackfair.html).##
-
-*Developed by [Yunsu Choi | goodbye.tigris@gmail.com](mailto:goodbye.tigris@gmail.com "goodbye.tigris@gmail.com")*
+*Developed by [**Yunsu Choi** | goodbye.tigris@gmail.com](mailto:goodbye.tigris@gmail.com "goodbye.tigris@gmail.com")*
 
 ----------
 ##Abstract##
@@ -19,6 +17,7 @@ by identifying NFC tag`s Specfic UID or NDEF data, sending command to Arduino bo
 - [Android Ice Cream Sandwich 4.0.4 | Samsung Galaxy S3 LTE(South Korea U+ variant)](http://developer.android.com/intl/ko/about/versions/android-4.0.3.html), 
 - [Arduino IDE 0023](http://www.arduino.cc/en/Main/software)
 - [Arduino Mega 2560 R2](http://arduino.cc/en/Main/ArduinoBoardMega2560) + [USB host Shield 2.0](http://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-2-0-for-arduino) 
+- [Arduino ADK R3](http://arduino.cc/en/Main/ArduinoBoardADK)
 
 ## Additional infomations ##
 - ADK library is based on [ADK 2011](http://developer.android.com/intl/ko/tools/adk/adk.html) which annouenced at Google I/O 2011.
@@ -28,9 +27,9 @@ by identifying NFC tag`s Specfic UID or NDEF data, sending command to Arduino bo
 ----------
 See also
 
-- Youtube: [Project AndroFace | youtube.com/watch?v=T1asxIxMzGE](http://www.youtube.com/watch?v=T1asxIxMzGE "Project AndroFace")
+- Youtube: [**Project AndroFace** | youtube.com/watch?v=T1asxIxMzGE](http://www.youtube.com/watch?v=T1asxIxMzGE "Project AndroFace")
 
 
-Document update : 2012-11-02. 02:51 (GMT+09:00)
+Document update : 2012-11-08. 18:30 (GMT+09:00)
 
 ----------

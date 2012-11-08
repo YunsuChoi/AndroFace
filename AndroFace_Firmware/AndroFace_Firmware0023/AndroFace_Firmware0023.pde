@@ -31,15 +31,15 @@ AndroidAccessory acc("Yunsu Choi",
 
 void setup()
 {
-  Serial.begin(115200); // To monitoring ADK by serial port with monitor function in Arduino IDE
-  Serial.print("\r\nStart");
+  //Serial.begin(115200); // To monitoring ADK by serial port with monitor function in Arduino IDE
+  //Serial.print("\r\nStart");
 
   //myservo1.attach(9);
   //myservo1.write(0);
   //myservo2.attach(10);
   //myservo2.write(0);
   myservo3.attach(11);
-  myservo3.write(90);
+  myservo3.write(0); 
 
   //analogWrite(firstLED, 0);
   //analogWrite(secondLED, 0);
@@ -69,9 +69,9 @@ void loop() // loop phase is imcomplete,
             //acc.write(msg, 3);
             //analogWrite(firstLED, 180);
             //analogWrite(secondLED, 180);
-            myservo3.write(90);
-            delay(5000); // DO NOT set delay(x) below 2
-            myservo3.write(0);
+            myservo3.write(90); // Open 
+            delay(1000); // DO NOT set delay(x) below 2
+            myservo3.write(0); // Close
             //analogWrite(firstLED, 0);   
             //analogWrite(secondLED, 0);
           }
