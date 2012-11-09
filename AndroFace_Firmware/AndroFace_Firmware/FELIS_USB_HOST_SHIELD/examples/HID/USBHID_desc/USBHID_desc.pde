@@ -1,4 +1,3 @@
-
 #include <avr/pgmspace.h>
 
 #include <avrpins.h>
@@ -19,47 +18,9 @@
 
 #include "pgmstrings.h"  
 
-class HIDUniversal2 : public HIDUniversal
-{
-public:
-    HIDUniversal2(USB *usb) : HIDUniversal(usb) {};
-    
-protected:
-    virtual uint8_t OnInitSuccessful();
-};
-
-uint8_t HIDUniversal2::OnInitSuccessful()
-{
-    uint8_t    rcode;
-    
-    HexDumper<USBReadParser, uint16_t, uint16_t>    Hex;
-    ReportDescParser                                Rpt;
-
-    if (rcode = GetReportDescr(0, &Hex))
-        goto FailGetReportDescr1;
-	        
-    if (rcode = GetReportDescr(0, &Rpt))
-	goto FailGetReportDescr2;
-
-    return 0;
-
-FailGetReportDescr1:
-    USBTRACE("GetReportDescr1:");
-    goto Fail;
-
-FailGetReportDescr2:
-    USBTRACE("GetReportDescr2:");
-    goto Fail;
-
-Fail:
-    Serial.println(rcode, HEX);
-    Release();
-    return rcode;
-}
-
 USB                                             Usb;
-//USBHub                                          Hub(&Usb);
-HIDUniversal2                                   Hid(&Usb);
+USBHub                                          Hub(&Usb);
+HIDUniversal                                    Hid(&Usb);
 UniversalReportParser                           Uni;
 
 void setup()

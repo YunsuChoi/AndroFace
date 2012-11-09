@@ -68,7 +68,8 @@ void loop()
 {
     Usb.Task();
   
-    if( Acm.isReady()) {  
+    if( Usb.getUsbTaskState() == USB_STATE_RUNNING )
+    {  
        uint8_t rcode;
        
        /* reading the keyboard */

@@ -108,8 +108,7 @@ uint8_t USB::SetAddress(uint8_t addr, uint8_t ep, EpInfo **ppep, uint16_t &nak_l
 		return USB_ERROR_EP_NOT_FOUND_IN_TBL;
 
 	nak_limit = (0x0001UL << ( ( (*ppep)->bmNakPower > USB_NAK_MAX_POWER ) ? USB_NAK_MAX_POWER : (*ppep)->bmNakPower) );
-	nak_limit--;
-	  
+	nak_limit--;  
 /*
   USBTRACE2("\r\nAddress: ", addr);
   USBTRACE2(" EP: ", ep);
@@ -391,7 +390,6 @@ uint8_t USB::dispatchPkt( uint8_t token, uint8_t ep, uint16_t nak_limit )
 			nak_count ++;
 			if( nak_limit && ( nak_count == nak_limit )) 
 				return( rcode );
-			//delay(1);	
 			break;
 		case hrTIMEOUT:
 			retry_count ++;
@@ -616,7 +614,7 @@ uint8_t USB::getConfDescr( uint8_t addr, uint8_t ep, uint8_t conf, USBReadParser
 		return ret;
 
 	uint16_t		total = ((USB_CONFIGURATION_DESCRIPTOR*)buf)->wTotalLength;
-  delay(100);
+
 	//USBTRACE2("\r\ntotal conf.size:", total);
 
     return( ctrlReq( addr, ep, bmREQ_GET_DESCR, USB_REQUEST_GET_DESCRIPTOR, conf, USB_DESCRIPTOR_CONFIGURATION, 0x0000, total, bufSize, buf, p ));
