@@ -35,7 +35,7 @@ void setup(){
 }
 
 void loop(){
-  for(angle=0; angle<180; angle++){
+  for(angle=0; angle<180; angle+=1){
     angle1 = 180 - angle;
     angle2 = 0 + (angle);
     analogWrite(firstLED, angle);
@@ -47,7 +47,7 @@ void loop(){
     delay(10); // DO NOT set delay(x) below 2
   }
 
-  for(angle=180; angle>=1; angle--){
+  for(angle=180; angle>=1; angle-=1){
     angle1 = 180 - angle;
     angle2 = 0 + (angle);
     analogWrite(firstLED, angle);
