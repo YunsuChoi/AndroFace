@@ -11,8 +11,8 @@ by identifying NFC tag`s Specfic UID or NDEF data, sending command to Arduino bo
 - This repository includes [**Android code**](https://github.com/YunsuChoi/AndroFace/tree/master/Main) and [**Arduino firmware**](https://github.com/YunsuChoi/AndroFace/tree/master/AndroFace_Firmware/AndroFace_Firmware) either.
 
 ## Testing environment ##
-- [Android JellyBean 4.1.2 | Samsung Nexus S & Galaxy S3 LTE(South Korea U+ variant)](http://developer.android.com/intl/ko/about/versions/android-4.1.html)
-- [Android Ice Cream Sandwich 4.0.4 | Samsung Nexus S & Galaxy S3 LTE(South Korea U+ variant)](http://developer.android.com/intl/ko/about/versions/android-4.0.3.html)
+- [Android Jelly Bean 4.1 | Samsung Nexus S & Galaxy S3 LTE(South Korea U+ variant)](http://developer.android.com/intl/ko/about/versions/android-4.1.html)
+- [Android Ice Cream Sandwich 4.0 | Samsung Nexus S & Galaxy S3 LTE(South Korea U+ variant)](http://developer.android.com/intl/ko/about/versions/android-4.0.3.html)
 - [Arduino IDE 0023](http://arduino.googlecode.com/files/arduino-0023.zip) +  [Arduino Mega 2560 R2](http://arduino.cc/en/Main/ArduinoBoardMega2560) + [USB Host Shield 2.0](http://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-2-0-for-arduino) 
 - [Arduino IDE 1.0.1](http://arduino.googlecode.com/files/arduino-1.0.1-windows.zip) +  [Arduino Mega ADK R3](http://arduino.cc/en/Main/ArduinoBoardADK)
 
@@ -27,6 +27,6 @@ See also
 - Youtube: [**Project AndroFace** | youtube.com/watch?v=T1asxIxMzGE](http://www.youtube.com/watch?v=T1asxIxMzGE "Project AndroFace")
 
 
-Document update : 2012-11-09. 15:07 (GMT+09:00)
+Document update : 2012-11-10 19:25 (GMT+09:00)
 
 ----------
