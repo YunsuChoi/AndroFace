@@ -1,5 +1,5 @@
 #**Project AndroFace**#
-##for [Google HackFair Korea 2012](http://googledevkr.blogspot.kr/2012/08/google-hackfair.html)##
+##for [Google HackFair Korea 2012](http://googlekoreablog.blogspot.kr/2012/11/google-hackfair_6.html)##
 
 *Developed by [**Yunsu Choi** | goodbye.tigris@gmail.com](mailto:goodbye.tigris@gmail.com "goodbye.tigris@gmail.com")*
 
@@ -27,6 +27,6 @@ See also
 - Youtube: [**Project AndroFace** | youtube.com/watch?v=T1asxIxMzGE](http://www.youtube.com/watch?v=T1asxIxMzGE "Project AndroFace")
 
 
-Document update : 2012-11-10 19:25 (GMT+09:00)
+Document update : 2012-11-12 23:23 (GMT+09:00)
 
 ----------
