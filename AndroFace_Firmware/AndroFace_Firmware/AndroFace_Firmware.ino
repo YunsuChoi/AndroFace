@@ -42,9 +42,9 @@ void loop()
         if (msg[1] == 0x0) { // Function #1 from Android app
           if (msg[2]==1){ // data from android.
             myservo3.write(90); // open
-            delay(2000); // DO NOT set delay(x) below 2
+            delay(5000); // DO NOT set delay(x) below 2
             myservo3.write(0); // close
-            delay(1000);
+            //delay(5000);
             //goto bail; // now testing
           }
 
