@@ -30,11 +30,10 @@ void setup()
 
   acc.powerOn(); //Ignite voltage on a elements
 }
-void loop() 
-{
+void loop() {
   byte msg[3];
   delay(0); // control response timing
-//bail:
+  //bail:
   if (acc.isConnected()) { //whenever connected to Android phone.
     int len = acc.read(msg, sizeof(msg), -1);
     if (len > 0) { // assumes only one command per packet
@@ -61,6 +60,8 @@ void loop()
     }
   }
 }
+
+
 
 
 
