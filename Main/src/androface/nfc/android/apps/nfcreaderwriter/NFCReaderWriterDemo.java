@@ -108,7 +108,8 @@ public class NFCReaderWriterDemo extends Activity {
 				UsbAccessory accessory = UsbManager.getAccessory(intent);
 				// 앱이 사용하고 있는 장비와 같은 것인지 확인
 				if (accessory != null && accessory.equals(mAccessory)) {
-					showMessage("USB Host 연결 해제됨.");
+					showMessage("Project AndroFace Disconnected");
+					//showMessage("USB Host 연결 해제됨.");
 					closeAccessory();
 					pool.play(wheatley_hello, 1, 1, 0, 0, 1); // Temp reset sound
 					
@@ -166,13 +167,15 @@ public class NFCReaderWriterDemo extends Activity {
     	public void handleMessage(Message msg) {
     		if(msg.what==0) {
 	    		if(handler != null && handler.isConnected()){
-	        		btnLed.setChecked(true);
 	        		long starttime = System.currentTimeMillis(), curtime = 0;
+	        		btnLed.setChecked(true); // May this point makes disconnection of ADK
 	        		
 	        		while(true) {
+	        			showMessage("Now dispensing Jelly Beans :)");
 	        			curtime = System.currentTimeMillis();
-	        			if(curtime-starttime>5000) {
+	        			if(curtime-starttime>=5000) {
 	        				btnLed.setChecked(false);
+	        				showMessage("Dispensing Completed, Enjoy!");
 	        				break;
 	        			}
 	        		}
@@ -181,6 +184,7 @@ public class NFCReaderWriterDemo extends Activity {
     		} else if(msg.what==1) {
             	if(handler !=null && handler.isConnected()){
             		btnLed.setChecked(false);
+            		showMessage("Please try another Tag :(");
 //            		handler.write((byte)0x1, (byte)0x0, (int) 0);
             		
             	}
@@ -220,7 +224,7 @@ public class NFCReaderWriterDemo extends Activity {
                                      boolean isChecked) {
 				if(handler != null && handler.isConnected()){  
                       handler.write((byte)0x1, (byte)0x0, isChecked ? 1 : 0);
-                      showMessage("AndroFace " + (isChecked ? "On" : "Off"));
+                      showMessage("Project AndroFace, Dispensing" + (isChecked ? "Start" : "End"));
                  }
             }});
         
@@ -253,10 +257,11 @@ public class NFCReaderWriterDemo extends Activity {
      		UsbAccessory accessory = (accessories == null ? null : accessories[0]);
      		if (accessory != null) { // Android Accessory Protocol를 구현한 장비를 찾았을 경우
      			if (mUsbManager.hasPermission(accessory)) {
-     				showMessage("onresume : USB Host 연결됨.");
+     				showMessage("Welcome to Project AndroFace");
+     				//showMessage("onresume : USB Host 연결됨.");
      				openAccessory(accessory);
      				
-     				//sound
+     				//connection established sound
      				//pool.play(wheatley_hello, 1, 1, 0, 0, 1);
      				
      			} else {

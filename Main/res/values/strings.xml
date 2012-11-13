@@ -33,7 +33,7 @@
 -->
 <resources>
     <string name="app_name">Project AndroFace</string>
-    <string name="hello">ADK board is not connected yet</string>
+    <string name="hello">Project AndroFace is \nnot connected yet</string>
     <string name="keyCode">NFC</string>
     
 </resources>

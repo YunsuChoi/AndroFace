@@ -55,14 +55,14 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"/>
 	  <!-- ADK Manual command Button -->
+
 		<ToggleButton
 		    android:id="@+id/btnLed"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:gravity="center"
+		    android:layout_width="0dp"
+		    android:layout_height="0dp"
 		    android:layout_marginLeft="15dp"
 		    android:layout_marginRight="15dp"
-		    android:text="LED"/>
+		    android:gravity="center" />
 		
 <TextView android:id="@+id/keyCodeView"
 	        android:layout_width="fill_parent"
@@ -87,7 +87,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"/>
         <EditText
             android:id="@+id/myUrl"
             android:layout_width="match_parent"
@@ -99,12 +99,13 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="0dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:focusable="false"/>
         <Button
             android:id="@+id/myWriteUrlButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Write to NFC Tag..."
+            android:text="Write NDEF data into NFC Tag"
             android:textStyle="normal"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
