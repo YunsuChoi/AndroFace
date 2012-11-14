@@ -33,6 +33,7 @@ void setup()
 void loop() {
   byte msg[3];
   delay(0); // control response timing
+  
   //bail:
   if (acc.isConnected()) { //whenever connected to Android phone.
     int len = acc.read(msg, sizeof(msg), -1);
@@ -47,8 +48,7 @@ void loop() {
             //goto bail; // now testing
           }
 
-          else if(msg[2]!=1)
-          {
+          else if(msg[2]!=1) {
             myservo3.write(0);
             delay(1000);
           }

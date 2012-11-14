@@ -111,7 +111,7 @@ public class NFCReaderWriterDemo extends Activity {
 					showMessage("Project AndroFace Disconnected");
 					//showMessage("USB Host ¿¬°á ÇØÁ¦µÊ.");
 					closeAccessory();
-					pool.play(wheatley_hello, 1, 1, 0, 0, 1); // Temp reset sound
+					//pool.play(wheatley_hello, 1, 1, 0, 0, 1); // Temp reset sound
 					
 				}
 			}
@@ -168,16 +168,18 @@ public class NFCReaderWriterDemo extends Activity {
     		if(msg.what==0) {
 	    		if(handler != null && handler.isConnected()){
 	        		long starttime = System.currentTimeMillis(), curtime = 0;
+	        		
 	        		btnLed.setChecked(true); // May this point makes disconnection of ADK
 	        		
 	        		while(true) {
-	        			showMessage("Now dispensing Jelly Beans :)");
+	        			
 	        			curtime = System.currentTimeMillis();
 	        			if(curtime-starttime>=5000) {
 	        				btnLed.setChecked(false);
 	        				showMessage("Dispensing Completed, Enjoy!");
 	        				break;
 	        			}
+	        			keyMessage("Please Touch the NFC TAG");
 	        		}
 	        		
 	    		}		
@@ -504,6 +506,7 @@ public class NFCReaderWriterDemo extends Activity {
                         mHandler.post(new Runnable() {
 							@Override
 							public void run() {
+								showMessage("Now dispensing Jelly Beans :)");
 								mHandler.sendEmptyMessage(0);
 							}
                         });
@@ -519,6 +522,7 @@ public class NFCReaderWriterDemo extends Activity {
                         mHandler.post(new Runnable() {
 							@Override
 							public void run() {
+								showMessage("Now dispensing Jelly Beans :)");
 								mHandler.sendEmptyMessage(0);
 							}
                         });
@@ -534,6 +538,7 @@ public class NFCReaderWriterDemo extends Activity {
                     	mHandler.post(new Runnable() {
 							@Override
 							public void run() {
+								showMessage("Please try Again");
 								mHandler.sendEmptyMessage(1);
 							}
                         });
