@@ -18,15 +18,19 @@ by identifying NFC tag`s Specfic UID or NDEF data, sending command to Arduino bo
 
 ## Additional infomations ##
 - ADK library is based on [ADK 2011](http://developer.android.com/intl/ko/tools/adk/adk.html) which annouenced at Google I/O 2011.
-- [NFC function](https://github.com/YunsuChoi/AndroFace/tree/master/Main) is from [Michael Roland](http://www.mroland.at/projects/nfc-taginfo/)
-- [Sound resource](https://github.com/YunsuChoi/AndroFace/tree/master/Main/res/raw) is from "[Portal 2](http://www.thinkwithportals.com/ "thinkwithportals.com")" by [Valve Corp.](http://www.valvesoftware.com/)
+- [NFC function](https://github.com/YunsuChoi/AndroFace/tree/master/Main) from [Michael Roland](http://www.mroland.at/projects/nfc-taginfo/)
+- [Sound resource](https://github.com/YunsuChoi/AndroFace/tree/master/Main/res/raw) from "[Portal 2](http://www.thinkwithportals.com/ "thinkwithportals.com")" by [Valve Corp.](http://www.valvesoftware.com/)
 
 ----------
-See also
+## See also ##
 
-- Youtube: [**Project AndroFace** | youtube.com/watch?v=T1asxIxMzGE](http://www.youtube.com/watch?v=T1asxIxMzGE "Project AndroFace")
+ Youtube Video
+
+- [**Project AndroFace : introduce** | youtube.com/watch?v=T1asxIxMzGE](http://www.youtube.com/watch?v=T1asxIxMzGE "Project AndroFace Introduce")
+- [**Project AndroFace @ HackFair** | youtube.com/watch?v=-eyvtIWG4F8](http://www.youtube.com/watch?v=-eyvtIWG4F8 "Project AndroFace at HackFair")
 
 
-Document update : 2012-11-13 17:50 (GMT+09:00)
+
+Document update : 2012-12-27 20:27 (GMT+09:00)
 
 ----------
